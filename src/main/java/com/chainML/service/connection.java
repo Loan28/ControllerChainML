@@ -130,69 +130,71 @@ public class connection {
     public static void main(String[] args) throws InterruptedException, FileNotFoundException {
 
         JsonParser parser = new JsonParser();
+        JsonObject jsonLinux = null;
+        JsonObject jsonAndroid = null;
+        JsonObject jsonRPI = null;
+        String model = "";
+        String label = "";
+        String nextDevice = "";
+        String first = "";
+        String firstDevice = "";
+
         Object json = parser.parse(new FileReader("tmp/controller.json"));
         JsonObject jsonObject = (JsonObject) json;
-        JsonArray list = (JsonArray) jsonObject.get("device");
-        JsonElement dev1 = list.get(0);
-        JsonElement dev2 = list.get(1);
-        JsonElement dev3 = list.get(2);
 
-        JsonObject jsonDev1 = (JsonObject) dev1;
-        JsonObject jsonDev2 = (JsonObject) dev2;
-        JsonObject jsonDev3 = (JsonObject) dev3;
-        JsonObject jsonTemp = null;
+        JsonArray listDevice = (JsonArray) jsonObject.get("device");
+        JsonArray ListML = (JsonArray) jsonObject.get("application");
 
-
-        //Put devices in order
-        if(jsonDev1.get("order").getAsString().equals("2")) {
-            if(jsonDev2.get("order").getAsString().equals("1")){
-                jsonTemp = jsonDev2;
-                jsonDev2 = jsonDev1;
-                jsonDev1 = jsonTemp;
-            }else{
-                jsonTemp = jsonDev2;
-                jsonDev2 = jsonDev1;
-                jsonDev1 = jsonDev3;
-                jsonDev3 = jsonTemp;;
-            }
-        }else if(jsonDev1.get("order").getAsString().equals("3")){
-            if(jsonDev2.get("order").getAsString().equals("1"))
-            {
-                jsonTemp = jsonDev1;// t = 3
-                jsonDev1 = jsonDev2;// 1 = 1
-                jsonDev2 = jsonDev3;// 2 = 2
-                jsonDev3 = jsonTemp;// 3 = 3
-            }
-            else{
-                jsonTemp = jsonDev3;
-                jsonDev3 = jsonDev1;
-                jsonDev1 = jsonTemp;
-            }
-        }
-        else{
-            if(jsonDev2.get("order").getAsString().equals("3")){
-                jsonTemp = jsonDev3;
-                jsonDev3 = jsonDev2;
-                jsonDev2 = jsonTemp;
+        for(int i = 0; i < listDevice.size();i++){
+            if(listDevice.get(i).getAsJsonObject().get("type").getAsString().equals("Linux")){
+                jsonLinux = listDevice.get(i).getAsJsonObject();
+            } else if(listDevice.get(i).getAsJsonObject().get("type").getAsString().equals("Android")){
+                jsonAndroid = listDevice.get(i).getAsJsonObject();
+            } else{
+                jsonRPI = listDevice.get(i).getAsJsonObject();
             }
         }
 
-        connection Device1 = setUpDevices(jsonDev1.get("ip").getAsString());
-        connection Device2 = setUpDevices(jsonDev2.get("ip").getAsString());
-        connection Device3 = setUpDevices(jsonDev3.get("ip").getAsString());
+        connection DeviceLinux = setUpDevices(jsonLinux.get("ip").getAsString());
+        connection DeviceAndroid = setUpDevices(jsonAndroid.get("ip").getAsString());
+        connection DeviceRPI = setUpDevices(jsonRPI.get("ip").getAsString());
 
-        //Device1.DeployAlgo(jsonDev1.get("model").getAsString(),jsonDev1.get("label").getAsString(),jsonDev2.get("type").getAsString(), Device1);
-        //Device2.DeployAlgo(jsonDev2.get("model").getAsString(),jsonDev2.get("label").getAsString(),jsonDev3.get("type").getAsString(), Device2);
-        //Device3.DeployAlgo(jsonDev3.get("model").getAsString(),jsonDev3.get("label").getAsString(),"end", Device3);
-        Device1.DeployAlgo(jsonDev1.get("model").getAsString(),jsonDev1.get("label").getAsString(),"end", Device1);
+        for(int i = 0; i < ListML.size();i++){
+            model = ListML.get(i).getAsJsonObject().get("model").getAsString();
+            label = ListML.get(i).getAsJsonObject().get("label").getAsString();
+            nextDevice = ListML.get(i).getAsJsonObject().get("nextDevice").getAsString();
+            first = ListML.get(i).getAsJsonObject().get("first").getAsString();
+
+            if(ListML.get(i).getAsJsonObject().get("location").getAsString().equals(jsonLinux.get("id").getAsString())){
+                if(first.equals("1"))
+                {
+                    firstDevice = "Linux";
+                }
+                DeviceLinux.DeployAlgo(model, label, nextDevice, DeviceLinux);
+            } else if(ListML.get(i).getAsJsonObject().get("location").getAsString().equals(jsonAndroid.get("id").getAsString())){
+                if(first.equals("1"))
+                {
+                    firstDevice = "Android";
+                }
+                DeviceAndroid.DeployAlgo(model, label, nextDevice, DeviceAndroid);
+            } else{
+                if(first.equals("1"))
+                {
+                    firstDevice = "RPI";
+                }
+                //DeviceRPI.DeployAlgo(model, label, nextDevice, DeviceRPI);
+            }
+        }
 
         try {
-           Device1.uploadFile("tmp/goose.jpg", "image");
+            if(firstDevice.equals("Android")) {
+                DeviceAndroid.uploadFile("tmp/goose.jpg", "image");
+            }
         }
         finally {
-            Device1.shutdown();
-            Device2.shutdown();
-             Device3.shutdown();
+            DeviceLinux.shutdown();
+            DeviceAndroid.shutdown();
+            DeviceRPI.shutdown();
         }
     }
 

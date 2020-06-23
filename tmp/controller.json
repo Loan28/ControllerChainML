@@ -1,25 +1,44 @@
 {
   "device": [
     {
+      "id": "0000001",
       "type":"Linux",
-      "order": "1",
-      "ip": "0.0.0.0",
-      "model": "mobilenet.tflite",
-      "label": "label.txt"
+      "ip": "0.0.0.0"
     },
     {
+      "id": "0000002",
       "type":"RPI",
-      "order": "2",
-      "ip": "192.168.1.75",
-      "model": "mobilenet.tflite",
-      "label": "label.txt"
+      "ip": "192.168.1.75"
     },
     {
+      "id": "0000003",
       "type":"Android",
-      "order": "3",
-      "ip": "192.168.1.67",
+      "ip": "192.168.1.67"
+
+    }
+  ],
+
+  "application": [
+    {
+      "first" : "1",
+      "nextDevice": "Linux",
       "model": "mobilenet.tflite",
-      "label": "label.txt"
+      "label": "label.txt",
+      "location": "0000003"
+    },
+    {
+      "first" : "0",
+      "nextDevice": "end",
+      "model": "mobilenet.tflite",
+      "label": "label.txt",
+      "location": "0000001"
+    },
+    {
+      "first" : "0",
+      "nextDevice": "end",
+      "model": "mobilenet.tflite",
+      "label": "label.txt",
+      "location": "0000002"
     }
   ]
 }
