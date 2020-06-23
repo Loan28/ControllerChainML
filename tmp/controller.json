@@ -1,0 +1,25 @@
+{
+  "device": [
+    {
+      "type":"Linux",
+      "order": "1",
+      "ip": "0.0.0.0",
+      "model": "mobilenet.tflite",
+      "label": "label.txt"
+    },
+    {
+      "type":"RPI",
+      "order": "2",
+      "ip": "192.168.1.75",
+      "model": "mobilenet.tflite",
+      "label": "label.txt"
+    },
+    {
+      "type":"Android",
+      "order": "3",
+      "ip": "192.168.1.67",
+      "model": "mobilenet.tflite",
+      "label": "label.txt"
+    }
+  ]
+}
