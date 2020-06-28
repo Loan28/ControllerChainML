@@ -11,6 +11,7 @@ message UploadFileRequest {
     bytes chunk_data = 2;
   };
   TypeFile type_file = 3;
+  FileName file_name = 4;
 }
 message UploadFileResponse {
   string id = 1;
@@ -23,7 +24,7 @@ message DataChunk {
 }
 
 message ImageInfo {
-  string image_type = 2;
+  string file_type = 2;
 }
 
 message Model{
@@ -34,7 +35,9 @@ message TypeFile{
   string typefile = 1;
 }
 
-
+message  FileName{
+  string filename = 1;
+}
 message Order {
   string nextDevice = 2;
 }
@@ -42,17 +45,16 @@ message Order {
 message replyOrder {
   string reply = 1;
 }
-// The request message containing the user's name.
+
 message OrderRequest {
   string name = 1;
 }
-
-// The response message containing the greetings
 message OrderReply {
   string message = 1;
 }
 
 service chainMLService {
   rpc DefineOrder (OrderRequest) returns (OrderReply) {}
+  rpc getSpecs (OrderRequest) returns (OrderReply) {}
   rpc UploadFile(stream UploadFileRequest) returns (UploadFileResponse) {};
 }

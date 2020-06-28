@@ -58,6 +58,37 @@ public final class chainMLServiceGrpc {
     return getDefineOrderMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.chainML.pb.OrderRequest,
+      com.chainML.pb.OrderReply> getGetSpecsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "getSpecs",
+      requestType = com.chainML.pb.OrderRequest.class,
+      responseType = com.chainML.pb.OrderReply.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.chainML.pb.OrderRequest,
+      com.chainML.pb.OrderReply> getGetSpecsMethod() {
+    io.grpc.MethodDescriptor<com.chainML.pb.OrderRequest, com.chainML.pb.OrderReply> getGetSpecsMethod;
+    if ((getGetSpecsMethod = chainMLServiceGrpc.getGetSpecsMethod) == null) {
+      synchronized (chainMLServiceGrpc.class) {
+        if ((getGetSpecsMethod = chainMLServiceGrpc.getGetSpecsMethod) == null) {
+          chainMLServiceGrpc.getGetSpecsMethod = getGetSpecsMethod =
+              io.grpc.MethodDescriptor.<com.chainML.pb.OrderRequest, com.chainML.pb.OrderReply>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "getSpecs"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.chainML.pb.OrderRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.chainML.pb.OrderReply.getDefaultInstance()))
+              .setSchemaDescriptor(new chainMLServiceMethodDescriptorSupplier("getSpecs"))
+              .build();
+        }
+      }
+    }
+    return getGetSpecsMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<com.chainML.pb.UploadFileRequest,
       com.chainML.pb.UploadFileResponse> getUploadFileMethod;
 
@@ -146,6 +177,13 @@ public final class chainMLServiceGrpc {
 
     /**
      */
+    public void getSpecs(com.chainML.pb.OrderRequest request,
+        io.grpc.stub.StreamObserver<com.chainML.pb.OrderReply> responseObserver) {
+      asyncUnimplementedUnaryCall(getGetSpecsMethod(), responseObserver);
+    }
+
+    /**
+     */
     public io.grpc.stub.StreamObserver<com.chainML.pb.UploadFileRequest> uploadFile(
         io.grpc.stub.StreamObserver<com.chainML.pb.UploadFileResponse> responseObserver) {
       return asyncUnimplementedStreamingCall(getUploadFileMethod(), responseObserver);
@@ -160,6 +198,13 @@ public final class chainMLServiceGrpc {
                 com.chainML.pb.OrderRequest,
                 com.chainML.pb.OrderReply>(
                   this, METHODID_DEFINE_ORDER)))
+          .addMethod(
+            getGetSpecsMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.chainML.pb.OrderRequest,
+                com.chainML.pb.OrderReply>(
+                  this, METHODID_GET_SPECS)))
           .addMethod(
             getUploadFileMethod(),
             asyncClientStreamingCall(
@@ -195,6 +240,14 @@ public final class chainMLServiceGrpc {
 
     /**
      */
+    public void getSpecs(com.chainML.pb.OrderRequest request,
+        io.grpc.stub.StreamObserver<com.chainML.pb.OrderReply> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getGetSpecsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
     public io.grpc.stub.StreamObserver<com.chainML.pb.UploadFileRequest> uploadFile(
         io.grpc.stub.StreamObserver<com.chainML.pb.UploadFileResponse> responseObserver) {
       return asyncClientStreamingCall(
@@ -222,6 +275,13 @@ public final class chainMLServiceGrpc {
       return blockingUnaryCall(
           getChannel(), getDefineOrderMethod(), getCallOptions(), request);
     }
+
+    /**
+     */
+    public com.chainML.pb.OrderReply getSpecs(com.chainML.pb.OrderRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getGetSpecsMethod(), getCallOptions(), request);
+    }
   }
 
   /**
@@ -245,10 +305,19 @@ public final class chainMLServiceGrpc {
       return futureUnaryCall(
           getChannel().newCall(getDefineOrderMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.chainML.pb.OrderReply> getSpecs(
+        com.chainML.pb.OrderRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getGetSpecsMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_DEFINE_ORDER = 0;
-  private static final int METHODID_UPLOAD_FILE = 1;
+  private static final int METHODID_GET_SPECS = 1;
+  private static final int METHODID_UPLOAD_FILE = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -269,6 +338,10 @@ public final class chainMLServiceGrpc {
       switch (methodId) {
         case METHODID_DEFINE_ORDER:
           serviceImpl.defineOrder((com.chainML.pb.OrderRequest) request,
+              (io.grpc.stub.StreamObserver<com.chainML.pb.OrderReply>) responseObserver);
+          break;
+        case METHODID_GET_SPECS:
+          serviceImpl.getSpecs((com.chainML.pb.OrderRequest) request,
               (io.grpc.stub.StreamObserver<com.chainML.pb.OrderReply>) responseObserver);
           break;
         default:
@@ -336,6 +409,7 @@ public final class chainMLServiceGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new chainMLServiceFileDescriptorSupplier())
               .addMethod(getDefineOrderMethod())
+              .addMethod(getGetSpecsMethod())
               .addMethod(getUploadFileMethod())
               .build();
         }

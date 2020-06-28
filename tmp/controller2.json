@@ -1,0 +1,60 @@
+{
+  "device": [
+    {
+      "id": "0000001",
+      "type":"Linux",
+      "ip": "0.0.0.0"
+    },
+    {
+      "id": "0000002",
+      "type":"RPI",
+      "ip": "192.168.1.69"
+    },
+    {
+      "id": "0000003",
+      "type":"Android",
+      "ip": "192.168.1.67"
+
+    }
+  ],
+
+  "application": [
+    {
+      "first" : "Linux",
+      "nextDeviceLinux": "end",
+      "modelLinux": "mobilenet.tflite",
+      "labelLinux": "label.txt",
+      "locationLinux": "0000001",
+      "nextDeviceAndroid": "end",
+      "modelAndroid": "mobilenet.tflite",
+      "labelAndroid": "label.txt",
+      "locationAndroid": "0000002",
+      "nextDeviceRPI": "end",
+      "modelRPI": "mobilenet.tflite",
+      "labelRPI": "label.txt",
+      "locationRPI": "0000003"
+    },
+    {
+      "first" : "Linux",
+      "nextDeviceLinux": "end",
+      "modelLinux": "mobilenet.tflite",
+      "labelLinux": "label.txt",
+      "locationLinux": "0000001",
+      "nextDeviceAndroid": "end",
+      "modelAndroid": "mobilenet.tflite",
+      "labelAndroid": "label.txt",
+      "locationAndroid": "0000002",
+      "nextDeviceRPI": "end",
+      "modelRPI": "mobilenet.tflite",
+      "labelRPI": "label.txt",
+      "locationRPI": "0000003"
+    }
+  ],
+
+  "controller": [
+    {
+      "ip": "192.168.1.70",
+      "port": "500052"
+    }
+  ]
+}

@@ -8,7 +8,7 @@
     {
       "id": "0000002",
       "type":"RPI",
-      "ip": "192.168.1.75"
+      "ip": "192.168.1.69"
     },
     {
       "id": "0000003",
@@ -20,13 +20,6 @@
 
   "application": [
     {
-      "first" : "1",
-      "nextDevice": "Linux",
-      "model": "mobilenet.tflite",
-      "label": "label.txt",
-      "location": "0000003"
-    },
-    {
       "first" : "0",
       "nextDevice": "end",
       "model": "mobilenet.tflite",
@@ -34,11 +27,25 @@
       "location": "0000001"
     },
     {
-      "first" : "0",
+      "first" : "1",
       "nextDevice": "end",
       "model": "mobilenet.tflite",
       "label": "label.txt",
       "location": "0000002"
+    },
+    {
+      "first" : "0",
+      "nextDevice": "end",
+      "model": "mobilenet.tflite",
+      "label": "label.txt",
+      "location": "0000003"
+    }
+  ],
+
+  "controller": [
+    {
+      "ip": "192.168.1.70",
+      "port": "500052"
     }
   ]
 }

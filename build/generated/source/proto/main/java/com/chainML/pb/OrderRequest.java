@@ -4,10 +4,6 @@
 package com.chainML.pb;
 
 /**
- * <pre>
- * The request message containing the user's name.
- * </pre>
- *
  * Protobuf type {@code chainML.OrderRequest}
  */
 public final class OrderRequest extends
@@ -284,10 +280,6 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * <pre>
-   * The request message containing the user's name.
-   * </pre>
-   *
    * Protobuf type {@code chainML.OrderRequest}
    */
   public static final class Builder extends

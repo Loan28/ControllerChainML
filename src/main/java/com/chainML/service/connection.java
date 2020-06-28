@@ -9,8 +9,15 @@ import com.chainML.pb.chainMLServiceGrpc.chainMLServiceBlockingStub;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.StatusRuntimeException;
 import io.grpc.stub.StreamObserver;
+import org.bytedeco.javacv.FFmpegFrameGrabber;
+import org.bytedeco.javacv.FrameGrabber;
+import org.bytedeco.javacv.Java2DFrameConverter;
 
+import javax.imageio.ImageIO;
 import java.io.*;
+import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -41,12 +48,23 @@ public class connection {
         OrderReply response;
         try {
             response = blockingStub.defineOrder(request);
+            logger.info(response.getMessage());
         } catch (StatusRuntimeException e) {
             logger.log(Level.WARNING, "RPC failed: {0}", e.getStatus());
             return;
         }
     }
-
+    public void getSpec(String name) {
+        OrderRequest request = OrderRequest.newBuilder().setName(name).build();
+        OrderReply response;
+        try {
+            response = blockingStub.getSpecs(request);
+            logger.info(response.getMessage());
+        } catch (StatusRuntimeException e) {
+            logger.log(Level.WARNING, "RPC failed: {0}", e.getStatus());
+            return;
+        }
+    }
 
     //Function to upload file to the server, arg: file path
     public void uploadFile(String imagePath, String type) throws InterruptedException {
@@ -55,7 +73,7 @@ public class connection {
         StreamObserver<UploadFileRequest> requestObserver = asyncStub.uploadFile(new StreamObserver<UploadFileResponse>() {
                     @Override
                     public void onNext(UploadFileResponse response) {
-                        logger.info("receive response: " + response);
+                        //logger.info("receive response: " + response);
                     }
 
                     @Override
@@ -66,7 +84,7 @@ public class connection {
 
                     @Override
                     public void onCompleted() {
-                        logger.info("file uploaded");
+                        logger.info("Client : file uploaded");
                         finishLatch.countDown();
                     }
                 });
@@ -79,13 +97,15 @@ public class connection {
         }
 
         String imageType = imagePath.substring(imagePath.lastIndexOf("."));
-        ImageInfo info = ImageInfo.newBuilder().setImageType(imageType).build();
+        String imageName = imagePath.substring(imagePath.lastIndexOf("/"),imagePath.lastIndexOf("."));
+        ImageInfo info = ImageInfo.newBuilder().setFileType(imageType).build();
         TypeFile typeFile = TypeFile.newBuilder().setTypefile(type).build();
-        UploadFileRequest request = UploadFileRequest.newBuilder().setInfo(info).setTypeFile(typeFile).build();
+        FileName fileName = FileName.newBuilder().setFilename(imageName).build();
+        UploadFileRequest request = UploadFileRequest.newBuilder().setInfo(info).setTypeFile(typeFile).setFileName(fileName).build();
 
         try {
             requestObserver.onNext(request);
-            logger.info("sent file info" + info);
+            logger.info("Client : sent file info " + info);
 
             byte[] buffer = new byte[1024];
            //fileInputStream.getChannel().size();
@@ -102,10 +122,9 @@ public class connection {
                         .setChunkData(ByteString.copyFrom(buffer, 0, n))
                         .build();
                 requestObserver.onNext(request);
-                logger.info("sent file chunk with size: " + n);
             }
         }catch (Exception e){
-            logger.log(Level.SEVERE, "unexcepted error: " + e.getMessage());
+            logger.log(Level.SEVERE, "Client : unexcepted error: " + e.getMessage());
             requestObserver.onError(e);
             return;
         }
@@ -113,12 +132,13 @@ public class connection {
         requestObserver.onCompleted();
 
         if (!finishLatch.await(1, TimeUnit.MINUTES)){
-            logger.warning("request cannot finish within 1 minute");
+            logger.warning("Client : request cannot finish within 1 minute");
         }
     }
 
     public static connection setUpDevices(String ip){
         connection Device = new connection(ip, 50051);
+        Device.getSpec("h");
         return Device;
     }
 
@@ -127,7 +147,7 @@ public class connection {
             Device.uploadFile("tmp/" + ML1Path, "model");
             Device.uploadFile("tmp/" + Label1Path, "label");
     }
-    public static void main(String[] args) throws InterruptedException, FileNotFoundException {
+    public static void main(String[] args) throws InterruptedException, IOException, FrameGrabber.Exception {
 
         JsonParser parser = new JsonParser();
         JsonObject jsonLinux = null;
@@ -154,17 +174,15 @@ public class connection {
                 jsonRPI = listDevice.get(i).getAsJsonObject();
             }
         }
-
         connection DeviceLinux = setUpDevices(jsonLinux.get("ip").getAsString());
-        connection DeviceAndroid = setUpDevices(jsonAndroid.get("ip").getAsString());
-        connection DeviceRPI = setUpDevices(jsonRPI.get("ip").getAsString());
+        //connection DeviceAndroid = setUpDevices(jsonAndroid.get("ip").getAsString());
+        //connection DeviceRPI = setUpDevices(jsonRPI.get("ip").getAsString());
 
         for(int i = 0; i < ListML.size();i++){
             model = ListML.get(i).getAsJsonObject().get("model").getAsString();
             label = ListML.get(i).getAsJsonObject().get("label").getAsString();
             nextDevice = ListML.get(i).getAsJsonObject().get("nextDevice").getAsString();
             first = ListML.get(i).getAsJsonObject().get("first").getAsString();
-
             if(ListML.get(i).getAsJsonObject().get("location").getAsString().equals(jsonLinux.get("id").getAsString())){
                 if(first.equals("1"))
                 {
@@ -176,7 +194,7 @@ public class connection {
                 {
                     firstDevice = "Android";
                 }
-                DeviceAndroid.DeployAlgo(model, label, nextDevice, DeviceAndroid);
+                //DeviceAndroid.DeployAlgo(model, label, nextDevice, DeviceAndroid);
             } else{
                 if(first.equals("1"))
                 {
@@ -186,16 +204,25 @@ public class connection {
             }
         }
 
-        try {
-            if(firstDevice.equals("Android")) {
-                DeviceAndroid.uploadFile("tmp/goose.jpg", "image");
+        Scanner sc= new Scanner(System.in);    //System.in is a standard input stream
+        String command = "";
+        controllerServer server = new controllerServer(50052);
+        server.start();
+        do {
+            System.out.print("To deploy ML algo type in deploy\nTo end the programm press x\n\n");
+            command = sc.nextLine();
+            if (command.equals("deploy")) {
+                if (firstDevice.equals("Android")) {
+                    //DeviceAndroid.uploadFile("tmp/video_test.mp4", "video");
+                } else if(firstDevice.equals("Linux")){
+                   DeviceLinux.uploadFile("tmp/video_test.mp4", "video");
+                }else{
+                   //DeviceRPI.uploadFile("tmp/video_test.mp4", "video");
+                }
             }
-        }
-        finally {
-            DeviceLinux.shutdown();
-            DeviceAndroid.shutdown();
-            DeviceRPI.shutdown();
-        }
+        }while((!"x".equals(command)));
+        //DeviceRPI.shutdown();
+
     }
 
 }

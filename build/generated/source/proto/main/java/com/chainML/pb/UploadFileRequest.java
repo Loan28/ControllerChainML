@@ -80,6 +80,19 @@ private static final long serialVersionUID = 0L;
 
             break;
           }
+          case 34: {
+            com.chainML.pb.FileName.Builder subBuilder = null;
+            if (fileName_ != null) {
+              subBuilder = fileName_.toBuilder();
+            }
+            fileName_ = input.readMessage(com.chainML.pb.FileName.parser(), extensionRegistry);
+            if (subBuilder != null) {
+              subBuilder.mergeFrom(fileName_);
+              fileName_ = subBuilder.buildPartial();
+            }
+
+            break;
+          }
           default: {
             if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -223,6 +236,32 @@ private static final long serialVersionUID = 0L;
     return getTypeFile();
   }
 
+  public static final int FILE_NAME_FIELD_NUMBER = 4;
+  private com.chainML.pb.FileName fileName_;
+  /**
+   * <code>.chainML.FileName file_name = 4;</code>
+   * @return Whether the fileName field is set.
+   */
+  @java.lang.Override
+  public boolean hasFileName() {
+    return fileName_ != null;
+  }
+  /**
+   * <code>.chainML.FileName file_name = 4;</code>
+   * @return The fileName.
+   */
+  @java.lang.Override
+  public com.chainML.pb.FileName getFileName() {
+    return fileName_ == null ? com.chainML.pb.FileName.getDefaultInstance() : fileName_;
+  }
+  /**
+   * <code>.chainML.FileName file_name = 4;</code>
+   */
+  @java.lang.Override
+  public com.chainML.pb.FileNameOrBuilder getFileNameOrBuilder() {
+    return getFileName();
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -247,6 +286,9 @@ private static final long serialVersionUID = 0L;
     if (typeFile_ != null) {
       output.writeMessage(3, getTypeFile());
     }
+    if (fileName_ != null) {
+      output.writeMessage(4, getFileName());
+    }
     unknownFields.writeTo(output);
   }
 
@@ -269,6 +311,10 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(3, getTypeFile());
     }
+    if (fileName_ != null) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeMessageSize(4, getFileName());
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -288,6 +334,11 @@ private static final long serialVersionUID = 0L;
     if (hasTypeFile()) {
       if (!getTypeFile()
           .equals(other.getTypeFile())) return false;
+    }
+    if (hasFileName() != other.hasFileName()) return false;
+    if (hasFileName()) {
+      if (!getFileName()
+          .equals(other.getFileName())) return false;
     }
     if (!getDataCase().equals(other.getDataCase())) return false;
     switch (dataCase_) {
@@ -316,6 +367,10 @@ private static final long serialVersionUID = 0L;
     if (hasTypeFile()) {
       hash = (37 * hash) + TYPE_FILE_FIELD_NUMBER;
       hash = (53 * hash) + getTypeFile().hashCode();
+    }
+    if (hasFileName()) {
+      hash = (37 * hash) + FILE_NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getFileName().hashCode();
     }
     switch (dataCase_) {
       case 1:
@@ -468,6 +523,12 @@ private static final long serialVersionUID = 0L;
         typeFile_ = null;
         typeFileBuilder_ = null;
       }
+      if (fileNameBuilder_ == null) {
+        fileName_ = null;
+      } else {
+        fileName_ = null;
+        fileNameBuilder_ = null;
+      }
       dataCase_ = 0;
       data_ = null;
       return this;
@@ -510,6 +571,11 @@ private static final long serialVersionUID = 0L;
         result.typeFile_ = typeFile_;
       } else {
         result.typeFile_ = typeFileBuilder_.build();
+      }
+      if (fileNameBuilder_ == null) {
+        result.fileName_ = fileName_;
+      } else {
+        result.fileName_ = fileNameBuilder_.build();
       }
       result.dataCase_ = dataCase_;
       onBuilt();
@@ -562,6 +628,9 @@ private static final long serialVersionUID = 0L;
       if (other == com.chainML.pb.UploadFileRequest.getDefaultInstance()) return this;
       if (other.hasTypeFile()) {
         mergeTypeFile(other.getTypeFile());
+      }
+      if (other.hasFileName()) {
+        mergeFileName(other.getFileName());
       }
       switch (other.getDataCase()) {
         case INFO: {
@@ -915,6 +984,125 @@ private static final long serialVersionUID = 0L;
         typeFile_ = null;
       }
       return typeFileBuilder_;
+    }
+
+    private com.chainML.pb.FileName fileName_;
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.chainML.pb.FileName, com.chainML.pb.FileName.Builder, com.chainML.pb.FileNameOrBuilder> fileNameBuilder_;
+    /**
+     * <code>.chainML.FileName file_name = 4;</code>
+     * @return Whether the fileName field is set.
+     */
+    public boolean hasFileName() {
+      return fileNameBuilder_ != null || fileName_ != null;
+    }
+    /**
+     * <code>.chainML.FileName file_name = 4;</code>
+     * @return The fileName.
+     */
+    public com.chainML.pb.FileName getFileName() {
+      if (fileNameBuilder_ == null) {
+        return fileName_ == null ? com.chainML.pb.FileName.getDefaultInstance() : fileName_;
+      } else {
+        return fileNameBuilder_.getMessage();
+      }
+    }
+    /**
+     * <code>.chainML.FileName file_name = 4;</code>
+     */
+    public Builder setFileName(com.chainML.pb.FileName value) {
+      if (fileNameBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        fileName_ = value;
+        onChanged();
+      } else {
+        fileNameBuilder_.setMessage(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.chainML.FileName file_name = 4;</code>
+     */
+    public Builder setFileName(
+        com.chainML.pb.FileName.Builder builderForValue) {
+      if (fileNameBuilder_ == null) {
+        fileName_ = builderForValue.build();
+        onChanged();
+      } else {
+        fileNameBuilder_.setMessage(builderForValue.build());
+      }
+
+      return this;
+    }
+    /**
+     * <code>.chainML.FileName file_name = 4;</code>
+     */
+    public Builder mergeFileName(com.chainML.pb.FileName value) {
+      if (fileNameBuilder_ == null) {
+        if (fileName_ != null) {
+          fileName_ =
+            com.chainML.pb.FileName.newBuilder(fileName_).mergeFrom(value).buildPartial();
+        } else {
+          fileName_ = value;
+        }
+        onChanged();
+      } else {
+        fileNameBuilder_.mergeFrom(value);
+      }
+
+      return this;
+    }
+    /**
+     * <code>.chainML.FileName file_name = 4;</code>
+     */
+    public Builder clearFileName() {
+      if (fileNameBuilder_ == null) {
+        fileName_ = null;
+        onChanged();
+      } else {
+        fileName_ = null;
+        fileNameBuilder_ = null;
+      }
+
+      return this;
+    }
+    /**
+     * <code>.chainML.FileName file_name = 4;</code>
+     */
+    public com.chainML.pb.FileName.Builder getFileNameBuilder() {
+      
+      onChanged();
+      return getFileNameFieldBuilder().getBuilder();
+    }
+    /**
+     * <code>.chainML.FileName file_name = 4;</code>
+     */
+    public com.chainML.pb.FileNameOrBuilder getFileNameOrBuilder() {
+      if (fileNameBuilder_ != null) {
+        return fileNameBuilder_.getMessageOrBuilder();
+      } else {
+        return fileName_ == null ?
+            com.chainML.pb.FileName.getDefaultInstance() : fileName_;
+      }
+    }
+    /**
+     * <code>.chainML.FileName file_name = 4;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+        com.chainML.pb.FileName, com.chainML.pb.FileName.Builder, com.chainML.pb.FileNameOrBuilder> 
+        getFileNameFieldBuilder() {
+      if (fileNameBuilder_ == null) {
+        fileNameBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+            com.chainML.pb.FileName, com.chainML.pb.FileName.Builder, com.chainML.pb.FileNameOrBuilder>(
+                getFileName(),
+                getParentForChildren(),
+                isClean());
+        fileName_ = null;
+      }
+      return fileNameBuilder_;
     }
     @java.lang.Override
     public final Builder setUnknownFields(

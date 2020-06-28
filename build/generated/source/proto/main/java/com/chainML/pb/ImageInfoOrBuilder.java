@@ -8,14 +8,14 @@ public interface ImageInfoOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>string image_type = 2;</code>
-   * @return The imageType.
+   * <code>string file_type = 2;</code>
+   * @return The fileType.
    */
-  java.lang.String getImageType();
+  java.lang.String getFileType();
   /**
-   * <code>string image_type = 2;</code>
-   * @return The bytes for imageType.
+   * <code>string file_type = 2;</code>
+   * @return The bytes for fileType.
    */
   com.google.protobuf.ByteString
-      getImageTypeBytes();
+      getFileTypeBytes();
 }

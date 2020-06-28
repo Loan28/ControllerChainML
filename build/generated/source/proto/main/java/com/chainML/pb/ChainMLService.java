@@ -45,6 +45,11 @@ public final class ChainMLService {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_chainML_TypeFile_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_chainML_FileName_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_chainML_FileName_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_chainML_Order_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -73,22 +78,26 @@ public final class ChainMLService {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\025chainML_service.proto\022\007chainML\"{\n\021Uplo" +
-      "adFileRequest\022\"\n\004info\030\001 \001(\0132\022.chainML.Im" +
-      "ageInfoH\000\022\024\n\nchunk_data\030\002 \001(\014H\000\022$\n\ttype_" +
-      "file\030\003 \001(\0132\021.chainML.TypeFileB\006\n\004data\".\n" +
-      "\022UploadFileResponse\022\n\n\002id\030\001 \001(\t\022\014\n\004size\030" +
-      "\002 \001(\r\"\'\n\tDataChunk\022\014\n\004data\030\001 \001(\014\022\014\n\004size" +
-      "\030\002 \001(\005\"\037\n\tImageInfo\022\022\n\nimage_type\030\002 \001(\t\"" +
-      "\032\n\005Model\022\021\n\tmodelName\030\001 \001(\t\"\034\n\010TypeFile\022" +
-      "\020\n\010typefile\030\001 \001(\t\"\033\n\005Order\022\022\n\nnextDevice" +
-      "\030\002 \001(\t\"\033\n\nreplyOrder\022\r\n\005reply\030\001 \001(\t\"\034\n\014O" +
-      "rderRequest\022\014\n\004name\030\001 \001(\t\"\035\n\nOrderReply\022" +
-      "\017\n\007message\030\001 \001(\t2\230\001\n\016chainMLService\022;\n\013D" +
-      "efineOrder\022\025.chainML.OrderRequest\032\023.chai" +
-      "nML.OrderReply\"\000\022I\n\nUploadFile\022\032.chainML" +
-      ".UploadFileRequest\032\033.chainML.UploadFileR" +
-      "esponse\"\000(\001B\022\n\016com.chainML.pbP\001b\006proto3"
+      "\n\025chainML_service.proto\022\007chainML\"\241\001\n\021Upl" +
+      "oadFileRequest\022\"\n\004info\030\001 \001(\0132\022.chainML.I" +
+      "mageInfoH\000\022\024\n\nchunk_data\030\002 \001(\014H\000\022$\n\ttype" +
+      "_file\030\003 \001(\0132\021.chainML.TypeFile\022$\n\tfile_n" +
+      "ame\030\004 \001(\0132\021.chainML.FileNameB\006\n\004data\".\n\022" +
+      "UploadFileResponse\022\n\n\002id\030\001 \001(\t\022\014\n\004size\030\002" +
+      " \001(\r\"\'\n\tDataChunk\022\014\n\004data\030\001 \001(\014\022\014\n\004size\030" +
+      "\002 \001(\005\"\036\n\tImageInfo\022\021\n\tfile_type\030\002 \001(\t\"\032\n" +
+      "\005Model\022\021\n\tmodelName\030\001 \001(\t\"\034\n\010TypeFile\022\020\n" +
+      "\010typefile\030\001 \001(\t\"\034\n\010FileName\022\020\n\010filename\030" +
+      "\001 \001(\t\"\033\n\005Order\022\022\n\nnextDevice\030\002 \001(\t\"\033\n\nre" +
+      "plyOrder\022\r\n\005reply\030\001 \001(\t\"\034\n\014OrderRequest\022" +
+      "\014\n\004name\030\001 \001(\t\"\035\n\nOrderReply\022\017\n\007message\030\001" +
+      " \001(\t2\322\001\n\016chainMLService\022;\n\013DefineOrder\022\025" +
+      ".chainML.OrderRequest\032\023.chainML.OrderRep" +
+      "ly\"\000\0228\n\010getSpecs\022\025.chainML.OrderRequest\032" +
+      "\023.chainML.OrderReply\"\000\022I\n\nUploadFile\022\032.c" +
+      "hainML.UploadFileRequest\032\033.chainML.Uploa" +
+      "dFileResponse\"\000(\001B\022\n\016com.chainML.pbP\001b\006p" +
+      "roto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -99,7 +108,7 @@ public final class ChainMLService {
     internal_static_chainML_UploadFileRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_chainML_UploadFileRequest_descriptor,
-        new java.lang.String[] { "Info", "ChunkData", "TypeFile", "Data", });
+        new java.lang.String[] { "Info", "ChunkData", "TypeFile", "FileName", "Data", });
     internal_static_chainML_UploadFileResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_chainML_UploadFileResponse_fieldAccessorTable = new
@@ -117,7 +126,7 @@ public final class ChainMLService {
     internal_static_chainML_ImageInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_chainML_ImageInfo_descriptor,
-        new java.lang.String[] { "ImageType", });
+        new java.lang.String[] { "FileType", });
     internal_static_chainML_Model_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_chainML_Model_fieldAccessorTable = new
@@ -130,26 +139,32 @@ public final class ChainMLService {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_chainML_TypeFile_descriptor,
         new java.lang.String[] { "Typefile", });
-    internal_static_chainML_Order_descriptor =
+    internal_static_chainML_FileName_descriptor =
       getDescriptor().getMessageTypes().get(6);
+    internal_static_chainML_FileName_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_chainML_FileName_descriptor,
+        new java.lang.String[] { "Filename", });
+    internal_static_chainML_Order_descriptor =
+      getDescriptor().getMessageTypes().get(7);
     internal_static_chainML_Order_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_chainML_Order_descriptor,
         new java.lang.String[] { "NextDevice", });
     internal_static_chainML_replyOrder_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_chainML_replyOrder_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_chainML_replyOrder_descriptor,
         new java.lang.String[] { "Reply", });
     internal_static_chainML_OrderRequest_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_chainML_OrderRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_chainML_OrderRequest_descriptor,
         new java.lang.String[] { "Name", });
     internal_static_chainML_OrderReply_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_chainML_OrderReply_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_chainML_OrderReply_descriptor,

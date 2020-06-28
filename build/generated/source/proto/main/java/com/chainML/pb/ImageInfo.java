@@ -16,7 +16,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private ImageInfo() {
-    imageType_ = "";
+    fileType_ = "";
   }
 
   @java.lang.Override
@@ -52,7 +52,7 @@ private static final long serialVersionUID = 0L;
           case 18: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            imageType_ = s;
+            fileType_ = s;
             break;
           }
           default: {
@@ -87,38 +87,38 @@ private static final long serialVersionUID = 0L;
             com.chainML.pb.ImageInfo.class, com.chainML.pb.ImageInfo.Builder.class);
   }
 
-  public static final int IMAGE_TYPE_FIELD_NUMBER = 2;
-  private volatile java.lang.Object imageType_;
+  public static final int FILE_TYPE_FIELD_NUMBER = 2;
+  private volatile java.lang.Object fileType_;
   /**
-   * <code>string image_type = 2;</code>
-   * @return The imageType.
+   * <code>string file_type = 2;</code>
+   * @return The fileType.
    */
   @java.lang.Override
-  public java.lang.String getImageType() {
-    java.lang.Object ref = imageType_;
+  public java.lang.String getFileType() {
+    java.lang.Object ref = fileType_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      imageType_ = s;
+      fileType_ = s;
       return s;
     }
   }
   /**
-   * <code>string image_type = 2;</code>
-   * @return The bytes for imageType.
+   * <code>string file_type = 2;</code>
+   * @return The bytes for fileType.
    */
   @java.lang.Override
   public com.google.protobuf.ByteString
-      getImageTypeBytes() {
-    java.lang.Object ref = imageType_;
+      getFileTypeBytes() {
+    java.lang.Object ref = fileType_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      imageType_ = b;
+      fileType_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
@@ -139,8 +139,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (!getImageTypeBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, imageType_);
+    if (!getFileTypeBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, fileType_);
     }
     unknownFields.writeTo(output);
   }
@@ -151,8 +151,8 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (!getImageTypeBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, imageType_);
+    if (!getFileTypeBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, fileType_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -169,8 +169,8 @@ private static final long serialVersionUID = 0L;
     }
     com.chainML.pb.ImageInfo other = (com.chainML.pb.ImageInfo) obj;
 
-    if (!getImageType()
-        .equals(other.getImageType())) return false;
+    if (!getFileType()
+        .equals(other.getFileType())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -182,8 +182,8 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + IMAGE_TYPE_FIELD_NUMBER;
-    hash = (53 * hash) + getImageType().hashCode();
+    hash = (37 * hash) + FILE_TYPE_FIELD_NUMBER;
+    hash = (53 * hash) + getFileType().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -317,7 +317,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      imageType_ = "";
+      fileType_ = "";
 
       return this;
     }
@@ -345,7 +345,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.chainML.pb.ImageInfo buildPartial() {
       com.chainML.pb.ImageInfo result = new com.chainML.pb.ImageInfo(this);
-      result.imageType_ = imageType_;
+      result.fileType_ = fileType_;
       onBuilt();
       return result;
     }
@@ -394,8 +394,8 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(com.chainML.pb.ImageInfo other) {
       if (other == com.chainML.pb.ImageInfo.getDefaultInstance()) return this;
-      if (!other.getImageType().isEmpty()) {
-        imageType_ = other.imageType_;
+      if (!other.getFileType().isEmpty()) {
+        fileType_ = other.fileType_;
         onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -427,78 +427,78 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object imageType_ = "";
+    private java.lang.Object fileType_ = "";
     /**
-     * <code>string image_type = 2;</code>
-     * @return The imageType.
+     * <code>string file_type = 2;</code>
+     * @return The fileType.
      */
-    public java.lang.String getImageType() {
-      java.lang.Object ref = imageType_;
+    public java.lang.String getFileType() {
+      java.lang.Object ref = fileType_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        imageType_ = s;
+        fileType_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
       }
     }
     /**
-     * <code>string image_type = 2;</code>
-     * @return The bytes for imageType.
+     * <code>string file_type = 2;</code>
+     * @return The bytes for fileType.
      */
     public com.google.protobuf.ByteString
-        getImageTypeBytes() {
-      java.lang.Object ref = imageType_;
+        getFileTypeBytes() {
+      java.lang.Object ref = fileType_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        imageType_ = b;
+        fileType_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>string image_type = 2;</code>
-     * @param value The imageType to set.
+     * <code>string file_type = 2;</code>
+     * @param value The fileType to set.
      * @return This builder for chaining.
      */
-    public Builder setImageType(
+    public Builder setFileType(
         java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
   
-      imageType_ = value;
+      fileType_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string image_type = 2;</code>
+     * <code>string file_type = 2;</code>
      * @return This builder for chaining.
      */
-    public Builder clearImageType() {
+    public Builder clearFileType() {
       
-      imageType_ = getDefaultInstance().getImageType();
+      fileType_ = getDefaultInstance().getFileType();
       onChanged();
       return this;
     }
     /**
-     * <code>string image_type = 2;</code>
-     * @param value The bytes for imageType to set.
+     * <code>string file_type = 2;</code>
+     * @param value The bytes for fileType to set.
      * @return This builder for chaining.
      */
-    public Builder setImageTypeBytes(
+    public Builder setFileTypeBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
       
-      imageType_ = value;
+      fileType_ = value;
       onChanged();
       return this;
     }

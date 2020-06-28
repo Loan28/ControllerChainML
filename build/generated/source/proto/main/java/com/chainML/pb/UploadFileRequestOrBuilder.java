@@ -43,5 +43,20 @@ public interface UploadFileRequestOrBuilder extends
    */
   com.chainML.pb.TypeFileOrBuilder getTypeFileOrBuilder();
 
+  /**
+   * <code>.chainML.FileName file_name = 4;</code>
+   * @return Whether the fileName field is set.
+   */
+  boolean hasFileName();
+  /**
+   * <code>.chainML.FileName file_name = 4;</code>
+   * @return The fileName.
+   */
+  com.chainML.pb.FileName getFileName();
+  /**
+   * <code>.chainML.FileName file_name = 4;</code>
+   */
+  com.chainML.pb.FileNameOrBuilder getFileNameOrBuilder();
+
   public com.chainML.pb.UploadFileRequest.DataCase getDataCase();
 }

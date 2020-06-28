@@ -4,10 +4,6 @@
 package com.chainML.pb;
 
 /**
- * <pre>
- * The response message containing the greetings
- * </pre>
- *
  * Protobuf type {@code chainML.OrderReply}
  */
 public final class OrderReply extends
@@ -284,10 +280,6 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * <pre>
-   * The response message containing the greetings
-   * </pre>
-   *
    * Protobuf type {@code chainML.OrderReply}
    */
   public static final class Builder extends
