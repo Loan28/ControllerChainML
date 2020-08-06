@@ -14,19 +14,19 @@ public class controllerServer {
     private final Server server;
 
 
-    public controllerServer(int port) {
-        this(ServerBuilder.forPort(port), port);
+    public controllerServer(int port,FileStore fileStore) {
+        this(ServerBuilder.forPort(port), port, fileStore);
     }
 
-    public controllerServer(ServerBuilder serverBuilder, int port){
+    public controllerServer(ServerBuilder serverBuilder, int port, FileStore fileStore){
         this.port = port;
-        chainMLService Service = new chainMLService();
+        controllerService Service = new controllerService(fileStore);
         server = serverBuilder.addService(Service).build();
     }
 
     public void start() throws IOException{
         server.start();
-        logger.info("Server : server started on port" + port);
+        logger.info("Server : server started on port " + port);
 
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
@@ -44,12 +44,6 @@ public class controllerServer {
     public void stop() throws  InterruptedException {
         if (server != null) {
             server.shutdownNow().awaitTermination(30, TimeUnit.SECONDS);
-        }
-    }
-
-    private void  blockUntilShutdown() throws InterruptedException {
-        if (server != null) {
-            server.awaitTermination();
         }
     }
 

@@ -1,0 +1,48 @@
+{
+  /*
+    Action possible:
+      send : Sends the frame to the next model in the pipeline
+      location of a device: Sends the frame to the location given.
+      sendController : Sends the results of model on the frame to the controller
+      drop : Discard the frame and move on to the next frame
+
+     Condition possible:
+      none : No condition and the pipeline will pass each frame through the whole pipeline
+      Name an object that needs to be detected: If a frame detects this object, the frame will follow the action
+   */
+
+  "application": [
+    {
+      "input": "dog_human.mp4",
+      "inputType": "video",
+      "applicationType": "pipeline",
+      "deployment": [
+        {
+          "first" : "1",
+          "nextDevice": "end",
+          "model": "posenet_mobilenet_100_257_257.tflite",
+          "label": "dog_label.txt",
+          "modelType": "tflite",
+          "location": "0000001",
+          "condition": "person",
+          "condition2": "none",
+          "action": "0000001",
+          "action2": "drop"
+        },
+        {
+          "first" : "0",
+          "nextDevice": "end",
+          "model": "face_detection.pb",
+          "label": "face_label.txt",
+          "modelType": "regular",
+          "location": "0000002",
+          "condition": "none",
+          "condition2": "none",
+          "action": "send_controller",
+          "action2": "drop"
+
+        }
+      ]
+    }
+  ]
+}
