@@ -35,11 +35,14 @@ public class connection {
         JsonArray listDevice = (JsonArray) jsonObjectDevice.get("device");
 
         controllerClient Devices[] = new controllerClient[listDevice.size()];
-
+        //
+        //Retrieve the devices from the jSON file into a device array
         for(int i = 0; i < listDevice.size();i++){
             Devices[i] = new controllerClient(listDevice.get(i).getAsJsonObject().get("ip").getAsString(),listDevice.get(i).getAsJsonObject().get("port").getAsInt());
         }
 
+        //
+        //Retrieve IP and port of the controller, then get the controller started
         String ipController = ((JsonObject) controllerJson).get("controller").getAsJsonObject().get("ip").getAsString();
         int portController = ((JsonObject) controllerJson).get("controller").getAsJsonObject().get("port").getAsInt();
         controllerServer server = new controllerServer(portController,imageStore);
@@ -70,7 +73,7 @@ public class connection {
                             .get(0).getAsJsonObject()
                             .get("deployment");
                     //
-                    // Retrieve information for each devices and assign to the
+                    // Retrieve information for each devices and assigne them to the right device object
                     for (int j = 0; j < ListDeploy.size(); j++) {
                         model = ListDeploy.get(j)
                                 .getAsJsonObject()
